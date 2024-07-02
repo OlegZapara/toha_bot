@@ -1,6 +1,4 @@
-use std::hash::{DefaultHasher, Hash, Hasher};
-
-use rand::{rngs::StdRng, Rng, SeedableRng};
+use crate::utils::get_user_query_random;
 use teloxide::types::{InlineQueryResultArticle, InputMessageContent, InputMessageContentText};
 
 pub fn get_pair_random(q: &teloxide::types::InlineQuery) -> teloxide::types::InlineQueryResultArticle {
@@ -15,32 +13,20 @@ pub fn get_pair_random(q: &teloxide::types::InlineQuery) -> teloxide::types::Inl
             "Ви з {} підходите один одному на {} {}% {}",
             q.query,
             random_emoji,
-            get_user_random(q.from.username.as_ref().unwrap(), q.query.clone()) % 101,
+            get_user_query_random(q.from.username.as_ref().unwrap(), q.query.clone()) % 101,
             random_emoji
         ))),
     };
 
-    let pair_random = InlineQueryResultArticle::new("01".to_string(), message, answer)
+    let pair_random = InlineQueryResultArticle::new("01", message, answer)
         .description("Обирай собі пару")
         .thumb_url("https://i.imgflip.com/4oqd5v.jpg?a477696".parse().unwrap());
 
     return pair_random;
 }
 
-fn get_user_random(username: &String, query: String) -> u32 {
-    let seed = hash_str(&username).wrapping_add(hash_str(&query));
-    let mut rng = StdRng::seed_from_u64(seed);
-    rng.gen()
-}
-
 fn get_random_emoji(username: &String, query: String) -> String {
-    let random = get_user_random(username, query);
+    let random = get_user_query_random(username, query);
     let emoji = vec!["❤️", "💕", "💜", "💙", "💖", "💗", "🏳️‍🌈", "🏳️‍⚧️"];
     emoji[random as usize % emoji.len()].to_string()
-}
-
-fn hash_str(s: &str) -> u64 {
-    let mut hasher = DefaultHasher::new();
-    s.hash(&mut hasher);
-    hasher.finish()
 }
