@@ -13,10 +13,16 @@ pub fn get_user_random(username: &String) -> u32 {
     rng.gen()
 }
 
-pub fn get_random_emoji(username: &String, query: String) -> String {
-    let random = get_user_query_random(username, query);
-    let emoji = vec!["❤️", "💕", "💜", "💙", "💖", "💗", "🏳️‍🌈", "🏳️‍⚧️"];
-    emoji[random as usize % emoji.len()].to_string()
+pub fn get_user_user_random(username1: &String, username2: &String) -> u32 {
+    let seed = {
+        if username1 < username2 {
+            hash_str(&username1).wrapping_add(hash_str(&username2))
+        } else {
+            hash_str(&username2).wrapping_add(hash_str(&username1))
+        }
+    };
+    let mut rng = StdRng::seed_from_u64(seed);
+    rng.gen()
 }
 
 pub fn hash_str(s: &str) -> u64 {
