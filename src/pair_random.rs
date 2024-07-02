@@ -35,7 +35,7 @@ fn get_user_random(username: &String, query: String) -> u32 {
 
 fn get_random_emoji(username: &String, query: String) -> String {
     let random = get_user_random(username, query);
-    let emoji = vec!["❤️", "💕", "💜", "💙", "💖", "💗", "💕", "️‍🌈", "🏳️‍🌈", "🏳️‍⚧️"];
+    let emoji = vec!["❤️", "💕", "💜", "💙", "💖", "💗", "🏳️‍🌈", "🏳️‍⚧️"];
     emoji[random as usize % emoji.len()].to_string()
 }
 
