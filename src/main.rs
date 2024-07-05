@@ -1,4 +1,4 @@
-use dck_random::get_dck_random;
+// use dck_random::get_dck_random;
 use dotenv::dotenv;
 use pair_random::get_pair_random;
 use std::env;
@@ -19,7 +19,7 @@ async fn main() {
     let handler = Update::filter_inline_query().branch(dptree::endpoint(|bot: Bot, q: InlineQuery| async move {
         let results = vec![
             InlineQueryResult::Article(get_pair_random(&q)),
-            InlineQueryResult::Article(get_dck_random(&q)),
+            // InlineQueryResult::Article(get_dck_random(&q)),
         ];
         let response = bot.answer_inline_query(&q.id, results).cache_time(0).send().await;
         if let Err(err) = response {
