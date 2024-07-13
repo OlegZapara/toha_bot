@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc && bun dist/app.js",
+    "start:prod": "tsc && bun dist/app.js",
     "dev": "nodemon --watch src --ext ts --exec 'bun src/app.ts'"
   },
   "author": "",
