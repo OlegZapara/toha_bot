@@ -4,9 +4,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "tsc && bun dist/app.js",
-    "start:prod": "tsc && bun dist/app.js",
-    "dev": "nodemon --watch src --ext ts --exec 'bun src/app.ts'"
+    "start": "tsc && node dist/app.js",
+    "start:prod": "tsc && node dist/app.js",
+    "dev": "nodemon --watch src --ext ts --exec 'node src/app.ts'"
   },
   "author": "",
   "license": "ISC",
